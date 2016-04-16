@@ -1,8 +1,12 @@
 'use strict';
 
-var Service = {
+var assign = require('object-assign');
 
-    request: (req) => {
+
+function Service() {
+};
+
+Service.prototype.request = (req) => {
 
         return new Promise(function (resolve, reject) {
 
@@ -33,7 +37,10 @@ var Service = {
                     xhr.setRequestHeader(key, req.headers[key]);
                 });
             }
-            var params = req.data;
+            else{
+                xhr.setRequestHeader("Content-type", "application/json");
+            }
+            var params = JSON.stringify(req.data);
             if (params && typeof params === 'object') {
                 params = Object.keys(params).map(function (key) {
                     return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
@@ -41,7 +48,6 @@ var Service = {
             }
             xhr.send(params);
         })
-    }
 };
 
 module.exports = Service;

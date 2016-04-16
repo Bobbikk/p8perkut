@@ -2,6 +2,7 @@ var express = require('express');
 var Services = require('../services/Services.js');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var passport = require('passport');
 
 var Player = require('../models/Player');
 
@@ -13,31 +14,48 @@ PlayerRouter.use('/', function(req, res, next){
     next();
 });
 
-PlayerRouter.post('/register', function(req, res, callback){
+PlayerRouter.post('/register', function(req, res){
 
-    Player.register(new Player({username: req.body.username}), req.body.password, function(err, account){
+    console.log(req.body);
+
+    Player.register(new Player(req.body), req.body.password, function(err){
+
+        if(err){
+            res.json({statusCode: 1, statusMessage: err.message});
+        }
 
         passport.authenticate('local')(req, res, function(){
-            callback();
+            res.redirect('getPlayer/'+ req.user.username);
         })
 
     })
 });
 
-PlayerRouter.get('/getPlayer/:playerId', function(req, res, callback){
+PlayerRouter.post('/login', function(req, res){
 
-    MongoClient.connect(url, function(err, db){
-
-        assert.equal(null, err);
-
-        Services.getItem(db, data, function(item){
-
-            res.json(item);
-        })
-
+    passport.authenticate('local')(req, res, function(){
+        res.redirect('getPlayer/' + req.user.username);
     })
 
+});
 
+PlayerRouter.post('/logout', function(req, res){
+    req.logout();
+    res.send('user has logged out');
+});
+
+PlayerRouter.get('/getPlayer/:player', function(req, res){
+
+    if(req.isAuthenticated()){
+
+        Player.findOne({'username': req.params.player}, function (err, result) {
+            console.log(result);
+            res.json(result);
+        })
+    }
+    else{
+        res.send('Please log into view your account');
+    }
 
 });
 

@@ -16,7 +16,7 @@ var url = 'mongodb://localhost:27017/test';
 var app = express();
 app.set('port', (process.env.PORT || 8080));
 
-app.use('/', express.static(__dirname+'/dist/'));
+app.use('/', express.static(__dirname+'/public/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(require('express-session')({
@@ -26,6 +26,7 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 var Player = require('./server/models/Player.js');
 passport.use(new LocalStrategy(Player.authenticate()));
@@ -37,5 +38,9 @@ mongoose.connect(url);
 app.use('/api/monsters', MonsterRouter);
 
 app.use('/api/player', PlayerRouter);
+
+app.get('*', function (request, response){
+    response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+});
 
 app.listen(app.get('port'));

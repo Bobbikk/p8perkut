@@ -2,20 +2,51 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
+var Attributes = new Schema({
+    HP: {
+        type: Number,
+        required: true
+    },
+    strength: {
+        type: Number,
+        required: true
+    },
+    speed: {
+        type: Number,
+        required: true
+    },
+    magic: {
+        type: Number,
+        required: true
+    },
+    knowledge: {
+        type: Number,
+        required: true
+    }
+});
+
 var Player = new Schema({
-    username: String,
-    password: String,
-    class: String,
+    username: {
+        type:String,
+        required: true
+    },
+    class: {
+        type: String,
+        required: true
+    },
     attributes: {
-        HP: Number,
-        strength: Number,
-        speed: Number,
-        magic: Number,
-        knowledge: Number
+        type: Attributes,
+        required: true
     },
     items: Array,
-    level: Number,
-    toNextLevel: Number
+    level: {
+        type: Number,
+        required: true
+    },
+    toNextLevel: {
+        type: Number,
+        required: true
+    },
 });
 
 Player.plugin(passportLocalMongoose);

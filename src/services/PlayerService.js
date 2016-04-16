@@ -1,22 +1,40 @@
 var Service = require('../lib/Service');
 var assign = require('object-assign');
 
-PlayerService = assign({}, Service.prototype, function(){
+var PlayerService = assign({}, Service.prototype,{
 
-    return {
+    registerPlayer: (data) => {
+        var params = {
+            method: "POST",
+            url: '/api/player/register',
+            data: data
+        };
 
-        registerPlayer: (data) => {
+        return PlayerService.request(params);
+    },
 
-            var params = {
-                method: "POST",
-                url: '/api/player/register',
-                data: data
-            };
+    logInPlayer: (data) => {
 
-            return this.request(params)
-        }
+        var params = {
+            method: "POST",
+            url: 'api/player/login',
+            data: data
+        };
+
+        return PlayerService.request(params);
+    },
+
+    logOutPlayer: () => {
+
+        var params = {
+            method: "POST",
+            url: 'api/player/logout'
+        };
+
+        return PlayerService.request(params);
+
     }
-});
 
+});
 
 module.exports = PlayerService;

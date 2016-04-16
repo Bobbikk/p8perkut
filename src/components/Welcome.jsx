@@ -13,7 +13,6 @@ var Welcome = React.createClass({
             <div>
                 <p>Welcome watchers of illusion to the castle of confusion!</p>
                 <button onclick={this.handleClick}>Introduce yourself, dungeoneer...</button>
-                {this.props.children}
             </div>
         )
     }

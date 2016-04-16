@@ -1,21 +1,21 @@
 var Dispatcher = require('../dispatcher/Dispatcher');
 var PlayerActionTypes = require('../const/PlayerActionTypes');
 var Store = require('../lib/Store');
+var assign = require('object-assign');
 
-var PlayerStore = Store.createStore(function(){
+var isloading = false;
+var playerInfo = null;
 
-    var isloading = false;
-    var playerInfo = null;
+function updatePlayerInfo(data){
+    playerInfo = data;
+}
 
-    function updatePlayerInfo(data){
-        playerInfo = data;
-    }
+function setIsLoading(loading){
+    isloading = !!loading;
+}
 
-    function setIsLoading(loading){
-        isloading = !!loading;
-    }
 
-    return {
+var PlayerStore = assign({}, Store.prototype, {
 
         getPlayerInfo: function () {
             return playerInfo;
@@ -25,7 +25,6 @@ var PlayerStore = Store.createStore(function(){
             return isLoading;
         }
 
-    }
 
 });
 
