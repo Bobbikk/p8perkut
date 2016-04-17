@@ -1,9 +1,10 @@
 'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Container = require('./components/container.jsx');
+var Router = require('./Router.jsx');
+require('./styles/paperkut.scss');
 
 ReactDOM.render(
-    <Container />,
+    <Router />,
     document.getElementById('content')
 );

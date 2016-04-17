@@ -1,0 +1,78 @@
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans:300|Courgette);
+@import 'utilities/reset';
+@import 'variables/colours';
+@import 'components/shared';
+@import 'components/login';
+@import 'components/register';
+@import 'components/welcome';
+
+body{
+  font-size: 62.5%
+}
+
+
+#content{
+  width: 960px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+a{
+  font-family: 'Courgette', cursive;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  margin: 30px 0 30px 0;
+  color: $dark-blue;
+}
+
+h1{
+  font-size: 2.4rem;
+}
+
+h2{
+  font-size: 2rem;
+}
+
+h3{
+  font-size: 1.6rem;
+}
+
+h4{
+  font-size: 1.4rem;
+}
+
+h5{
+  font-size: 1.3rem;
+}
+
+button, a{
+  font-size: 1.2rem;
+}
+
+p{
+  margin: 10px 0 10px 0;
+}
+
+
+p,
+span,
+li,
+input,
+label{
+  font-family: 'Merriweather Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: $grey;
+}
+
+.container{
+  width: 600px;
+  margin: 20px auto;
+}

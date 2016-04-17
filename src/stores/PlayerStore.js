@@ -15,7 +15,7 @@ function setIsLoading(loading){
 }
 
 
-var PlayerStore = assign({}, Store.prototype, {
+var PlayerStore = assign({}, Store, {
 
         getPlayerInfo: function () {
             return playerInfo;

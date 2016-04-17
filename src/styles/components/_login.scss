@@ -1,0 +1,14 @@
+.input__username,
+.input__password{
+  display: block;
+  margin: 20px 0;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px $light-grey dotted;
+  color: $light-grey;
+  &:focus{
+    background-color: $off-white;
+  }
+}
+
+

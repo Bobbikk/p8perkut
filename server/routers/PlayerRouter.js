@@ -34,7 +34,9 @@ PlayerRouter.post('/register', function(req, res){
 PlayerRouter.post('/login', function(req, res){
 
     passport.authenticate('local')(req, res, function(){
-        res.redirect('getPlayer/' + req.user.username);
+        Player.findOne({'username': req.user.username}, function (err, result) {
+            res.json(result);
+        })
     })
 
 });

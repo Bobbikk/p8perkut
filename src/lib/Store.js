@@ -4,27 +4,21 @@ var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
 
+var Store = assign({}, EventEmitter.prototype, {
 
-var Store = (function(){
-    function Store(){
+        emitChange: function () {
+            this.emit(this.CHANGE_EVENT);
+        },
 
-        this.CHANGE_EVENT = 'change';
+        addChangeListener: function (callback) {
+            this.on(this.CHANGE_EVENT, callback);
+        },
 
+        removeChangeListener: function (callback) {
+            this.removeListener(this.CHANGE_EVENT, callback);
+        }
     }
-    Store.prototype.emitChange = function(){
-        this.emit(this.CHANGE_EVENT);
-    };
-
-    Store.prototype.addChangeListener = function(callback){
-        this.on(this.CHANGE_EVENT, callback);
-    };
-
-    Store.prototype.removeChangeListener = function(callback){
-        this.removeListener(this.CHANGE_EVENT, callback);
-    };
-
-    return Store;
-});
+);
 
 
 

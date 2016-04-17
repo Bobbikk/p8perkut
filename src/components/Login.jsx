@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var ReactDOM = require('react-dom');
+import {Link} from 'react-router';
 
 var PlayerActions = require('../actions/PlayerActions');
 var PlayerStore = require('../stores/PlayerStore');
@@ -9,21 +9,26 @@ var PlayerStore = require('../stores/PlayerStore');
 var Login = React.createClass({
 
     getInitialState: function(){
-        return{
+        return {
             username: null,
-            password: null,
-            class: 'Paladin',
-            attributes: {
-                HP: 30,
-                strength: 5,
-                speed: 5,
-                magic: 2,
-                knowledge: 3
-            },
-            items: {},
-            level: 1,
-            toNextLevel: 30
+            password: null
         }
+    },
+
+    componentDidMount: function(){
+        PlayerStore.addChangeListener(this.updatePlayer);
+    },
+
+    componentWillUnmount: function(){
+        PlayerStore.removeChangeListener(this.updatePlayer);
+    },
+
+    updatePlayer: function(){
+
+      this.setState({
+          playerInfo: PlayerStore.getPlayerInfo()
+      });
+
     },
 
     handleUserChange: function(e){
@@ -42,7 +47,7 @@ var Login = React.createClass({
 
     },
 
-    submitUser: function(){
+    logIn: function(){
 
         var data = {
             username: this.state.username,
@@ -53,74 +58,31 @@ var Login = React.createClass({
 
     },
 
-    logOut: function(){
-        PlayerActions.logOutPlayer();
-    },
-
-    registerUser: function(){
-        var data = {
-            username: this.state.username,
-            password: this.state.password,
-            class: 'Paladin',
-            attributes: {
-                HP: 30,
-                strength: 5,
-                speed: 5,
-                magic: 2,
-                knowledge: 3
-            },
-            items: {},
-            level: 1,
-            toNextLevel: 30
-        };
-
-
-        PlayerActions.registerPlayer(data);
-    },
 
     render: function() {
         return (
-            <div>
-                <p>Greetings Dungeoneer (Login)</p>
+            <div className="login">
+                <h1 className="heading">I thought so. Remind me of your name...</h1>
 
-                <form>
-                    <label htmlFor="username">Username</label>
+                <form className="login__form">
                     <input type="text"
                            name="username"
+                           className="input__username"
                            value={this.username}
-                           placeholder="What is yourusername"
+                           placeholder="username"
                            onChange={this.handleUserChange}
                     />
-                    <label htmlFor="password">Password</label>
-                    <input type="text"
+                    <input type="password"
                            name="password"
-                           placeholder="Enter your"
+                           className="input__password"
+                           placeholder="password"
                            onChange={this.handlePasswordChange}
                     />
-                    <button type="button" onClick={this.submitUser}>Register</button>
+                    <div className="actions-menu">
+                        <button className="action-button blue" type="button" onClick={this.logIn}>Log In</button>
+                        <Link className="action-button blue" to="/">Back</Link>
+                    </div>
                 </form>
-
-                <p>Have we not met before? (Register)</p>
-
-                <form>
-                    <label htmlFor="username">Username</label>
-                    <input type="text"
-                           name="username"
-                           value={this.username}
-                           placeholder="Pick a username"
-                           onChange={this.handleUserChange}
-                    />
-                    <label htmlFor="password">Password</label>
-                    <input type="text"
-                           name="password"
-                           placeholder="Pick a password"
-                           onChange={this.handlePasswordChange}
-                    />
-                    <button type="button" onClick={this.registerUser}>Register</button>
-                </form>
-
-                <button type="button" onClick={this.logOut}>Log out</button>
-
             </div>
         );
     }

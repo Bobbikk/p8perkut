@@ -38,7 +38,7 @@ var PlayerActions = {
             console.log(res);
 
             Dispatcher.dispatch({
-                actionType: PlayerActionTypes.PLAYER_REGISTER,
+                actionType: PlayerActionTypes.PLAYER_LOGIN,
                 data: res
             })
         };
@@ -48,7 +48,7 @@ var PlayerActions = {
             console.log(reason);
 
             Dispatcher.dispatch({
-                actionType: PlayerActionTypes.PLAYER_REGISTER_FAILED,
+                actionType: PlayerActionTypes.PLAYER_LOGIN_FAILED,
                 data: reason
             })
         };
@@ -65,7 +65,7 @@ var PlayerActions = {
             console.log(res);
 
             Dispatcher.dispatch({
-                actionType: PlayerActionTypes.PLAYER_REGISTER,
+                actionType: PlayerActionTypes.PLAYER_LOGOUT,
                 data: res
             })
         };
@@ -75,7 +75,7 @@ var PlayerActions = {
             console.log(reason);
 
             Dispatcher.dispatch({
-                actionType: PlayerActionTypes.PLAYER_REGISTER_FAILED,
+                actionType: PlayerActionTypes.PLAYER_LOGOUT_FAILED,
                 data: reason
             })
         };
